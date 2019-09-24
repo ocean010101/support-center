@@ -16,12 +16,17 @@
     </main>
 </template>
 <script>
+import RemoteData from '../minxi/RemoteData'
 export default {
+    mixins: [
+        RemoteData
+    ],
     data() {
         return {
             questions: [],
             error: null,
-            loading: false
+            loading: false,
+            remoteDataLoading: 42
         }
     },
     async created() {
