@@ -1,5 +1,8 @@
+let baseUrl;
+
 export default {
-    install(Vue) {
-        console.log('Installed');
+    install(Vue, options) {
+        baseUrl = options.baseUrl;
+        console.log('Installed', options);
     }
 }
