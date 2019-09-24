@@ -1,6 +1,9 @@
 <template>
     <main class="faq">
         <h1>Frequently Asked Questions</h1>
+
+         <Loading v-if="loading" />
+
         <div class="error" v-if="error">
             Can't load the questions
         </div>
@@ -19,9 +22,11 @@ export default {
         return {
             questions: [],
             error: null,
+            loading: false
         }
     },
     created() {
+        this.loading = true;
         fetch('http://localhost:3000/questions')
             .then(response => {
                 if (response.ok) {
@@ -32,9 +37,11 @@ export default {
             })
             .then(result => {
                 this.questions = result;
+                this.loading = false;
             })
             .catch(e => {
                 this.error = e;
+                this.loading = false;
             })
     }
 }
