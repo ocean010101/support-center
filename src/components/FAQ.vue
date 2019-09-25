@@ -16,7 +16,7 @@
     </main>
 </template>
 <script>
-import RemoteData from '../minxi/RemoteData'
+import RemoteData from '../minxis/RemoteData'
 export default {
     mixins: [
         RemoteData({

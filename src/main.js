@@ -6,7 +6,11 @@ import './global-components'
 import VueFetch, { $fetch } from './plugins/fetch'
 import state from './state'
 import VueState from './plugins/state'
+import * as filters from './filters'
 
+for (const key in filters) { //循环注册过滤器
+  Vue.filter(key, filters[key])
+}
 
 Vue.use(VueFetch, {
   baseUrl: 'http://localhost:3000/',

@@ -1,3 +1,6 @@
+import state from "../state";
+import router from '../router'
+
 let baseUrl;
 
 export async function $fetch(url, options) {
@@ -11,6 +14,16 @@ export async function $fetch(url, options) {
     if (response.ok) {
         const data = await response.json()
         return data;
+    } else if (response.status === 403) {
+        //如果会话失效，我们登出
+        state.user = null
+        if (router.currentRoute.matched.some(r => r.meta.private)) {
+            router.replace({
+                name: 'login', params: {
+                    wantedRoute: router.currentRoute.fullPath,
+                }
+            })
+        }
     } else {
         const message = await response.text(); //服务器总是将错误作为文本发送, 捕获它并发送给用户
         const error = new Error(message);
