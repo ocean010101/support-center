@@ -5,6 +5,8 @@ import FAQ from './components/FAQ.vue'
 import Login from './components/Login.vue'
 import TicketsLayout from './components/TicketsLayout.vue'
 import state from './state'
+import Tickets from './components/Tickets.vue'
+import NewTicket from './components/NewTicket.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +14,13 @@ const routes = [
     { path: '/', name: 'home', component: Home },
     { path: '/faq', name: 'faq', component: FAQ },
     { path: '/login', name: 'login', component: Login, meta: { guest: true } },
-    { path: '/tickets', name: 'tickets', component: TicketsLayout, meta: { private: true } },
+    {
+        path: '/tickets', name: 'tickets', component: TicketsLayout,
+        meta: { private: true }, children: [
+            { path: '', name: 'tickets', component: Tickets },
+            { path: 'new', name: 'new-ticket', component: NewTicket },
+        ]
+    },
 ]
 
 const router = new VueRouter({
