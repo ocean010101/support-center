@@ -29,7 +29,16 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) { //最后，如果有滚动位置，可以恢复该滚动位置
+      return savedPosition
+    }
+    if (to.hash) { //我们将检查路由是否有模仿浏览器行为的散列值
+      return { selector: to.hash }
+    }
+    return { x: 0, y: 0 } //在路由改变时滚动到页面的顶部
+  },
 })
 
 router.beforeEach((to, from, next) => {
