@@ -19,7 +19,15 @@
     </div>
 </template>
 <script>
+import PersistantData from '../minxis/PersistantData'
+
 export default {
+    mixins : [
+      PersistantData('NewTicket', [
+        'title',
+        'description',
+      ])
+    ],
     data() {
         return {
             title: '',
