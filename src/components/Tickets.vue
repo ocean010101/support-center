@@ -8,22 +8,35 @@
 
     <section v-else class="tickets-list">
       <div v-for="ticket of tickets" class="ticket-item" :key="ticket._id">
-        <span>{{ ticket.title }}</span>
+        <a @click="id = ticket._id">{{ ticket.title }}</a>
+        <!-- <span>{{ ticket.title }}</span> -->
         <span class="badge">{{ ticket.status }}</span>
         <span class="date">{{ ticket.date | date }}</span>
       </div>
     </section>
+
+    <Ticket v-if="id" :id="id"/>
   </div>
 </template>
 
 <script>
 import RemoteData from '../minxis/RemoteData'
+import Ticket from './Ticket.vue'
 
 export default {
   mixins: [
     RemoteData({
       tickets: 'tickets',
+
     }),
-  ]
+  ],
+  components: {
+    Ticket,
+  },
+  data () {
+    return {
+      id: null
+    }
+  }
 }
 </script>
